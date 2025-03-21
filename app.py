@@ -259,8 +259,12 @@ def index():
         if file.filename == '':
             return redirect(request.url)
         
+        if not os.path.exists("static"):
+            os.makedirs("static")
+
         if file:
             filename = secure_filename(file.filename)
+            
             upload_path = os.path.join("static", filename)
             file.save(upload_path)  # Save uploaded image to static folder
 
