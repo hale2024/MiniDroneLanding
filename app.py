@@ -162,12 +162,12 @@ def choose_landing_spot_with_chatgpt(bboxes, img_width, img_height):
 
     try:
         response = openai.chat.completions.create(
-            model="gpt-4o-mini",  # or 'gpt-4' if you have access
+            model="o3-mini",  
             messages=[
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": user_message}
             ],
-            temperature=0.2
+            reasoning_effort="low"
         )
         chatgpt_reply = response.choices[0].message.content
         print("DEBUG reply:", chatgpt_reply)

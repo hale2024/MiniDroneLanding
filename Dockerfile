@@ -8,8 +8,6 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY . /app/
 
-# Explicitly create the static folder so it exists
-RUN mkdir -p /app/static
 
 RUN pip install --no-cache-dir -r requirements.txt
 
