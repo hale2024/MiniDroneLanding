@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Drone Landing Spot Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: center;
+        }
+        .upload-form {
+            margin-bottom: 30px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .images img {
+            max-width: 280px;
+            border: 2px solid #ccc;
+        }
+        .message {
+            color: red;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Added styles for centering the original preview */
+        #original-preview-container {
+            margin-top: 20px;
+            text-align: center; /* center any direct inline elements inside */
+        }
+        #original-preview {
+            max-width: 280px;
+            border: 2px solid #ccc;
+            display: none;      /* hidden by default until file is chosen */
+            margin: 0 auto;     /* center the image block */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Drone Landing Spot Selector</h1>
+
+    <!-- Upload form -->
+    <form class="upload-form" action="/" method="post" enctype="multipart/form-data">
+        <input id="file-input" type="file" name="input_image" accept="image/*" required>
+        <button type="submit">Upload and Process</button>
+    </form>
+
+    <!-- Original image preview container -->
+    <div id="original-preview-container">
+        <h3 style="display: none;" id="original-title">Original Image Preview</h3>
+        <img id="original-preview" src="#" alt="Original Image Preview">
+    </div>
+
+    <!-- Results area (shown only if we have something to show). -->
+    {% if interim_url or final_url or no_spot_message %}
+    <div class="results">
+        <h2>Results</h2>
+        <div class="images">
+            <div id="interim-container">
+            {% if interim_url %}
+                <h3>Interim YOLO Detections</h3>
+                <img src="{{ interim_url }}" alt="Interim Image with YOLO Boxes">
+            {% endif %}
+            </div>
+
+            <div id="final-container">
+            {% if final_url %}
+                <h3>Final Landing Spot</h3>
+                <img src="{{ final_url }}" alt="Final Image with Landing Box">
+            {% endif %}
+            </div>
+        </div>
+
+        {% if no_spot_message %}
+        <p class="message">{{ no_spot_message }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <p class="message" id="status-message"></p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('file-input');
+    const originalPreview = document.getElementById('original-preview');
+    const originalTitle = document.getElementById('original-title');
+    const statusMessage = document.getElementById('status-message');
+
+    fileInput.addEventListener('change', function(event) {
+        statusMessage.textContent = '';
+        const file = event.target.files[0];
+        if (file) {
+            // 1) Preview the original file on the client side
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                originalPreview.src = e.target.result;
+                originalPreview.style.display = 'block';
+                originalTitle.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+
+            // 2) Clear old results from previous upload
+            const interimContainer = document.getElementById('interim-container');
+            const finalContainer = document.getElementById('final-container');
+            if (interimContainer) interimContainer.innerHTML = '';
+            if (finalContainer) finalContainer.innerHTML = '';
+        }
+    });
+
+    // Show "Uploading and processing..." on form submit
+    const uploadForm = document.querySelector('.upload-form');
+    uploadForm.addEventListener('submit', function() {
+        statusMessage.textContent = 'Uploading and processing...';
+    });
+});
+</script>
+
+</body>
+</html>
