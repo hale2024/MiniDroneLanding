@@ -12,7 +12,7 @@ python app.py
 
 ```
 
-## 🚀 Live version of the app url on railway
-```bash
-https://minidronelanding-production.up.railway.app
-```
+## 🚀 Demo Video of the App Running
+[![Mini Drone Landing](https://img.youtube.com/vi/qX5J18kEf1A/0.jpg)](https://www.youtube.com/watch?v=qX5J18kEf1A)
+
+Click the image above to watch the video.
