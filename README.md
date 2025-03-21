@@ -7,7 +7,7 @@ This is a Flask-based application designed for the LLM-based YOLO-informed Auton
 
 ## 📁 Download the Benchmark Dataset
 
-To test the Drone Landing System, **please download the `Drone Landing Benchmark Dataset` folder** from the Google Drive link below:
+To test the Drone Landing System, **please download the `Drone Landing Benchmark Dataset` files** from the Google Drive link below:
 
 👉 [Download from Google Drive](https://drive.google.com/drive/folders/1fZMV0QfxnEicAt1iIz9Gkf63XSdkIF8p?usp=sharing)
 
