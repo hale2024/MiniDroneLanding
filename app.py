@@ -125,7 +125,6 @@ def draw_bounding_box(image, box, color=(0, 255, 0), thickness=2):
 def choose_landing_spot_with_chatgpt(bboxes, img_width, img_height):
     """
     Calls OpenAI's Chat API to determine the best landing spot, returning a bounding box.
-    If a fire is detected (class=1) per our rules, we won't even call this function.
     """
     # Make sure the API key is set:
     if not openai.api_key:
