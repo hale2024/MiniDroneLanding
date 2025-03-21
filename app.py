@@ -249,6 +249,9 @@ def index():
     interim_url = None
     final_url = None
     no_spot_message = None
+
+    if not os.path.exists("static"):
+            os.makedirs("static")
     
     if request.method == "POST":
         # 1) Get the file from the request
@@ -259,8 +262,7 @@ def index():
         if file.filename == '':
             return redirect(request.url)
         
-        if not os.path.exists("static"):
-            os.makedirs("static")
+        
 
         if file:
             filename = secure_filename(file.filename)
