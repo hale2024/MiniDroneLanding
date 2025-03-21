@@ -1,6 +1,7 @@
-# Mini Drone Landing 🛬
+# Mini Drone Landing Simulator 🛬
 
-This is a Flask-based application designed for Mini Drone Landing.
+This is a Flask-based application designed for the LLM-based YOLO-informed Autonomous Drone Landing System.
+
 
 ---
 
